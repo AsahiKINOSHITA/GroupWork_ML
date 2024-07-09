@@ -5,7 +5,7 @@ import numpy as np
 from . import count_polarity_statistics as counter 
 
 class DataPreprocessor:
-    def __init__(self, sentence_arrays, d1, d2):
+    def __init__(self, sentence_arrays, d1, d2,length):
         """
         DataPreprocessorクラスのコンストラクタ
         Args:
@@ -15,6 +15,7 @@ class DataPreprocessor:
         self.sentence_arrays = sentence_arrays
         self.dictionary1 = d1
         self.dictionary2 = d2
+        self.length=length
         self.X = None   #極性の4次元ベクトルを要素に持つnumpy配列を入れる
         self.y = None
 
@@ -23,10 +24,11 @@ class DataPreprocessor:
         data.txtのデータ形式を前提に前処理を行う
         """
         X_list = []
-        for i in range(len(self.sentence_arrays)):
+        """for i in range(len(self.sentence_arrays)):
             sentence = self.sentence_arrays[i]     # 配列の要素が文章であると想定
             count_vector = counter.count_and_vectorize(self.dictionary1, self.dictionary2, sentence)
-            X_list.append(count_vector)
+            X_list.append(count_vector)"""
+        X_list=counter.count_and_vectorize(self.dictionary1,self.dictionary2,self.sentence_arrays,self.length)
         self.X = np.array(X_list)                  # リストをnumpyの多次元配列に変換
 
     def preprocess_data_and_label(self):
@@ -34,7 +36,7 @@ class DataPreprocessor:
         train.txtのデータ形式を前提に前処理を行う
         """
         X_list, y_list = [], []
-        for i in range(len(self.sentence_arrays)):
+        """for i in range(len(self.sentence_arrays)):
             sentence = self.sentence_arrays[i][0]  # Sentenceの列を取得
             count_vector = counter.count_and_vectorize(self.dictionary1, self.dictionary2, sentence)
             X_list.append(count_vector)
@@ -43,7 +45,14 @@ class DataPreprocessor:
             else:                                  # Writer_Joyの列が"0"でないなら正例とする 
                 y_list.append(1)
             if len(X_list) < 4:
-                print(X_list[-1], y_list[-1])
+                print(X_list[-1], y_list[-1])"""
+        X_list = counter.count_and_vectorize(self.dictionary1,self.dictionary2,self.sentence_arrays[0],self.length)
+        for i in range(len(self.sentence_arrays[1])):
+            if self.sentence_arrays[1][i] == 0:
+                y_list.append(-1)
+            else:
+                y_list.append(1)
+        
         self.X, self.y = np.array(X_list), np.array(y_list)  # リストをnumpyの多次元配列に変換
 
 

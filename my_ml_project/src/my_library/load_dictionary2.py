@@ -1,6 +1,6 @@
 def load(input_path):
 
-    dictionary = {}
+    dictionary = []
     with open(input_path) as f:
         for line in f:
             if line != "":
@@ -18,7 +18,8 @@ def load(input_path):
                     else:
                         pass
                     array[1] = (array[1].split())[0]    #「キリ が ない」なら、大胆にはじめの「キリ」のみ辞書に登録
-                dictionary[array[1].rstrip('\n')] = array[0]
+                dictionary.append((array[1].rstrip('\n'),array[0]))#[array[1].rstrip('\n')] = array[0]
             else:
                 pass
+    dictionary.sort()
     return dictionary
