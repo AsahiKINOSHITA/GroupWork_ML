@@ -13,7 +13,7 @@ data_path = input("Enter the path for the data file: ")
 dictionary1_path = "data/dictionary1.txt"
 dictionary2_path = "data/dictionary2.txt"
 preprocessed_data_path = input("Enter the path to save the preprocessed data: ")
-data_length = int(input("Enter the number of lines of the data:"))
+data_length = int(input("Enter the number of lines of the data:")) # データの行数を入力
 labeled = input("Enter if the data is labeled (Y/N):")
 
 dictionary1 = dictionary1_loader.load(dictionary1_path)
@@ -21,7 +21,6 @@ dictionary2 = dictionary2_loader.load(dictionary2_path)
 start = time.time()
 if labeled == "Y":
     sentence_arrays = input_loader.load(data_path)
-    print(len(sentence_arrays[1]))
     data_preprocessor = DataPreprocessor(sentence_arrays, dictionary1, dictionary2,data_length) #train.txtの見出しの行を削除する
     data_preprocessor.preprocess_data_and_label()
 else:

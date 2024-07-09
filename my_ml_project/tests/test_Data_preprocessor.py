@@ -12,26 +12,26 @@ import src.my_library.Data_preprocessor as DataPreprocessor
 
 
 # モックデータとモック辞書を用意
-mock_sentences1 = [("This",0),
-                  ("is",0),
-                  ("a",0),
-                  ("test",0),
-                  ("sentence",0),
-                  ("Another",1),
-                  ("test",1),
-                  ("sentence",1)]
+mock_sentences1 = [["This",0,1],
+                  ["is",0,1],
+                  ["a",0,1],
+                  ["test",0,1],
+                  ["sentence",0,1],
+                  ["Another",1,1],
+                  ["test",1,1],
+                  ["sentence",1,1]]
 """mock_sentences1 = ["This is a test sentence", "Another test sentence"]"""
 mock_sentences1.sort()
 mock_sentences2 = [
     [
-        ("This",0),
-        ("is",0),
-        ("a",0),
-        ("test",0),
-        ("sentence",0),
-        ("Another",1),
-        ("test",1),
-        ("sentence",1)
+        ["This",0,1],
+        ["is",0,1],
+        ["a",0,1],
+        ["test",0,1],
+        ["sentence",0,1],
+        ["Another",1,1],
+        ["test",1,1],
+        ["sentence",1,1]
     ],
     [
         1,0

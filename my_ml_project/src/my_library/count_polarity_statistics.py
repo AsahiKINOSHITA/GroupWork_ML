@@ -32,21 +32,11 @@ def count_and_vectorize(d1, d2, sentence,length):
         while index2 < len(d2) and d2[index2][0] < w[0]:
             index2 += 1
         if index1 < len(d1) and w[0] == d1[index1][0]:
-            PN_tables[w[1]][3] += 1
-            if d1[index1][1] == -1:
-                PN_tables[w[1]][0] += 1
-            elif d1[index1][1] == 0:
-                PN_tables[w[1]][1] += 1
-            elif d1[index1][1] == 1:
-                PN_tables[w[1]][2] += 1
+            PN_tables[w[1]][3] += w[2]
+            PN_tables[w[1]][1 + d1[index1][1]] += w[2]
          
         if index2 < len(d2) and w[0] == d2[index2][0]:
-            PN_tables[w[1]][3] += 1
-            if d2[index2][1] == -1:
-                PN_tables[w[1]][0] += 1
-            elif d2[index2][1] == 0:
-                PN_tables[w[1]][1] += 1
-            elif d2[index2][1] == 1:
-                PN_tables[w[1]][2] += 1
+            PN_tables[w[1]][3] += w[2]
+            PN_tables[w[1]][1 + d2[index2][1]] += w[2]
     return PN_tables
          

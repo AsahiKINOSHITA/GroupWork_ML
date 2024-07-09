@@ -1,5 +1,6 @@
 from janome.tokenizer import Tokenizer
 import time
+rtang = ["しかし","けど","けれど"]
 
 def load(input_path):   #train.txtの情報を要素に持つリストを要素に持つリスト
     words_and_value_arrays = [[],[]]
@@ -14,14 +15,19 @@ def load(input_path):   #train.txtの情報を要素に持つリストを要素�
                     line_arrays = line.split("\t")
                 else:
                     pass
-                if is_first_line:
+                if is_first_line:       #最初の行は飛ばす
                     is_first_line = False
-                    continue
-                for token in t.tokenize(line_arrays[0]):
-                    words_and_value_arrays[0].append((token.base_form,cnt))
-                    print(f"\r loaded {cnt} lines",end="")
+                    continue    
+                list = []
+                for token in t.tokenize(line_arrays[0]):    #単語を(単語,その単語が何番目の文章から来たか,極性の倍率)という形のタプルで表す
+                    list.append([token.base_form,cnt,1])
+                    if token.base_form in rtang:
+                        for i in range(len(list) - 1):
+                            list[i][2] *= 1/2
+                words_and_value_arrays[0].extend(list)
+                print(f"\r loaded {cnt} lines",end="")  #進捗表示
             else:
-                print("\r")
+                print("\r\n")
                 pass
             cnt+=1
             words_and_value_arrays[1].append(line_arrays[4])
@@ -36,11 +42,16 @@ def load_raw_data(input_path):  #data.txtの一文を要素に持つリストを
         for line in f:
             if line != "":
                 line = line.rstrip("\n")
-                for token in t.tokenize(line):
-                    words_array.append((token.base_form,cnt))
-                    print(f"\r loaded {cnt} lines",end="")
+                list = []
+                for token in t.tokenize(line):                  #単語を(単語,その単語が何番目の文章から来たか,極性の倍率)という形のタプルで表す
+                    list.append([token.base_form,cnt,1])
+                    if token.base_form in rtang:
+                        for i in range(len(list) - 1):
+                            list[i][2] *= 1/2
+                words_array.extend(list)
+                print(f"\r loaded {cnt} lines",end="")
             else:
-                print("\r")
+                print("\r\n")
                 pass
             cnt+=1
     words_array.sort()
