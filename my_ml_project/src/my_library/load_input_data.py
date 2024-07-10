@@ -30,7 +30,7 @@ def load(input_path):   #train.txtの情報を要素に持つリストを要素�
                 print("\r\n")
                 pass
             cnt+=1
-            words_and_value_arrays[1].append(line_arrays[4])
+            words_and_value_arrays[1].append(int(line_arrays[4]))
     words_and_value_arrays[0].sort()
     return words_and_value_arrays
 

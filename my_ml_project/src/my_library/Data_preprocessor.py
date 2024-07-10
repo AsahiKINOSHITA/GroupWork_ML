@@ -47,14 +47,18 @@ class DataPreprocessor:
             if len(X_list) < 4:
                 print(X_list[-1], y_list[-1])"""
         X_list = counter.count_and_vectorize(self.dictionary1,self.dictionary2,self.sentence_arrays[0],self.length)
+
+        cnts = [0,0]
         for i in range(len(self.sentence_arrays[1])):
             if self.sentence_arrays[1][i] == 0:
                 y_list.append(-1)
+                cnts[1] += 1
             else:
                 y_list.append(1)
+                cnts[0] += 1
         
         self.X, self.y = np.array(X_list), np.array(y_list)  # リストをnumpyの多次元配列に変換
-
+        print(cnts)
 
     def dump(self, file_path):
         """
